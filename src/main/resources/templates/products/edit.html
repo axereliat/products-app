@@ -1,0 +1,21 @@
+<th:block th:include="fragments/header"/>
+<div class="jumbotron">
+  <h1 class="text-center mb-3">Edit Product</h1>
+  <form method="post" th:action="@{'/admin/products/edit/' + ${productId}}">
+    <div class="alert alert-danger" role="alert" th:if="${error != null}" th:text="${error}"></div>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" id="name" th:value="${model.name}" required>
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label>
+      <input type="number" class="form-control" id="price" name="price" th:value="${model.price}" required>
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input type="number" class="form-control" id="quantity" name="quantity" th:value="${model.quantity}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>
+<th:block th:include="fragments/footer"/>

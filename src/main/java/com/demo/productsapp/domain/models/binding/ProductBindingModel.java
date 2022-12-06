@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 
 @Data
-public class ProductCreateBindingModel {
+public class ProductBindingModel {
 
     @NotEmpty
     private String name;

@@ -6,8 +6,39 @@
         <a th:href="@{'/products/' + ${product.id}}" th:text="${product.name}"></a>
         <small th:text="${product.price + '$'}"></small>
         <small th:text="${product.quantity + ' items available'}"></small>
+        <a th:href="@{'/admin/products/edit/' + ${product.id}}" class="btn btn-secondary"
+           sec:authorize="hasAuthority('ADMIN')">Edit</a>
+        <a th:id="${'deleteBtn-' + product.id}" class="btn btn-danger"
+           sec:authorize="hasAuthority('ADMIN')">Delete</a>
+
       </div>
     </div>
   </th:block>
 </div>
 <th:block th:include="fragments/footer"/>
+
+<script th:inline="javascript">
+  $(function() {
+    $('a[id^=deleteBtn]').on('click', function (e) {
+      e.preventDefault();
+
+      if (!confirm('Are you sure?')) {
+        return;
+      }
+
+      var productId = $(this).attr('id').split('-')[1];
+      var self = this;
+
+      $.ajax({
+        url: '/admin/products/delete/' + productId,
+        type: 'POST',
+        success: function () {
+          $(self).closest('div.card').remove();
+        },
+        error: function (e) {
+          console.log('error', e);
+        }
+      });
+    })
+  });
+</script>
