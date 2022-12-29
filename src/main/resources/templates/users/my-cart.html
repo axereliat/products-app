@@ -1,0 +1,13 @@
+<th:block th:include="fragments/header"/>
+<div class="jumbotron">
+    <h3 class="text-center mb-2">My Cart</h3>
+    <th:block th:each="product : ${products}">
+        <div class="card">
+            <div class="card-body">
+                <a th:href="@{'/products/' + ${product.id}}" th:text="${product.name}"></a>
+                <small th:text="${product.price + '$'}"></small>
+            </div>
+        </div>
+    </th:block>
+</div>
+<th:block th:include="fragments/footer"/>
